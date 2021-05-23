@@ -1,17 +1,24 @@
 import img from '../assets/imgs/Logo.PNG'
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import Loader from "react-loader-spinner"
+
+import UserContext from '../contexts/UserContext'
 
 export default function Login(){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [isLoading, setLoading] = useState(false)
     const history = useHistory()
-    
+    const { setInformation } = useContext(UserContext)
+
     function login(){
+        if(  email === "" || password === "" ){
+            alert("preencha todos os campos")
+            return
+        }
         setLoading(true)
         const body = { email, password }
         const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", body)
@@ -19,7 +26,8 @@ export default function Login(){
         request.catch(error)
     }
 
-    function success(){
+    function success(reply){
+        setInformation(reply.data)
         history.push("/hoje")
         
     }

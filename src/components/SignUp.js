@@ -15,6 +15,10 @@ export default function SignUp(){
     const history = useHistory()
     
     function signUp(){
+        if( name === "" || email === "" || password === "" || picture === ""){
+            alert("preencha todos os campos")
+            return
+        }
         setLoading(true)
         const body = {email, name, image: picture, password}
         const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body)
@@ -26,14 +30,14 @@ export default function SignUp(){
         history.push("/")
     }
 
-    function error(error){
+    function error(){
         alert("erro ao efetuar o cadastro")
         setLoading(false)
         setEmail("")
         setPassword("")
         setPicture("")
         setName("")
-        console.log(error)
+        
     }
 
     return(
