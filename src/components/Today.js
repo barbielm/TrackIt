@@ -8,14 +8,14 @@ import UserContext from '../contexts/UserContext'
 import { useEffect, useContext, useState } from 'react'
 import axios from 'axios'
 import dayjs from 'dayjs'
-
+import 'dayjs/locale/pt-br'
 
 export default function Today(){
     const { information, dailyProgress, setDailyProgress } = useContext(UserContext)
     const { token } = information
     const [todayHabits, setTodayHabits] = useState([])
     const [ finishedHabits, setFinishedHabits ] = useState([])
-    
+
     const now = dayjs().locale('pt-br').format("dddd, D/M")
     
 

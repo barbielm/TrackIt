@@ -39,7 +39,7 @@ export default function Habit({habit, habits, setHabits}){
             </Head>
             <img src={TrashCam} alt="lixeira" onClick={deleteHabit}/>
             <Days>
-            {daysOfTheWeek.map((day,i) => <Day i={i} days={habit.days}>{day}</Day>)}
+            {daysOfTheWeek.map((day,i) => <Day i={i} days={habit.days} key={i}>{day}</Day>)}
             </Days>
         </HabitBox>
     )
