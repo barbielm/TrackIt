@@ -1,4 +1,5 @@
 import img from '../assets/imgs/Logo.PNG'
+
 import styled from 'styled-components'
 import { useState } from 'react'
 import axios from 'axios'
@@ -42,7 +43,7 @@ export default function SignUp(){
 
     return(
         <SignUpPage isLoading={isLoading}>
-            <img src={img} alt="logo"/>
+            <img src={img} />
             <LogoSignUp>TrackIt</LogoSignUp>
             <input type="text" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} disabled={isLoading} />
             <input type="password" placeholder="senha" value={password} onChange={e => setPassword(e.target.value)} disabled={isLoading} />
@@ -86,11 +87,13 @@ const SignUpPage = styled.div`
         font-size: 20px;
 
     }
-    img {
+    img{
+
         width: 170px;
         margin: 30px auto 0 auto;
-
+    
     }
+
     button{
         height: 45px;
         width: 100%;
@@ -104,8 +107,12 @@ const SignUpPage = styled.div`
         border: none;
         opacity: ${(props) => (props.isLoading) ? '0.7' : '1'}
     }
+ `
+
+const Images = styled.div`
 
 `
+
 const LogoSignUp = styled.div`
     font-size: 70px;
     margin: 10px auto 30px auto;

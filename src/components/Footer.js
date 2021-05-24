@@ -15,7 +15,9 @@ export default function Footer(){
                 <div >
                 <CircularProgressbar value={dailyProgress} styles={{
                     path: {
-                    stroke: `#FFFFFF`
+                    stroke: `#FFFFFF`,
+                    strokeLinecap: 'round',
+                    transition: 'stroke-dashoffset 0.5s ease 0s'
                     }}}/>
                 </div>
             </TodayButton>
