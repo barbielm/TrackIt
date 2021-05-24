@@ -10,10 +10,12 @@ import axios from 'axios'
 import dayjs from 'dayjs'
 
 export default function Today(){
-    const { information } = useContext(UserContext)
+    const { information, dailyProgress, setDailyProgress } = useContext(UserContext)
     const { token } = information
-    const [todayHabits, setTodayHabits] = useState([1,2,3,4,5,6])
+    const [todayHabits, setTodayHabits] = useState([])
+    const [ finishedHabits, setFinishedHabits ] = useState([])
     const now = dayjs().format("dddd, D/M")
+    
 
     useEffect(() => {
         const config = {
@@ -28,8 +30,14 @@ export default function Today(){
     },[])
     
     function success(reply){
-        console.log(reply.data)
-        //setTodayHabits(reply.data)
+        const allHabits = reply.data
+        const filteredHabits = reply.data.filter(h => h.done===true)
+        setTodayHabits(allHabits)
+        setFinishedHabits(filteredHabits)
+        if(allHabits.length > 0){
+            setDailyProgress(Math.round(100*filteredHabits.length/allHabits.length))    
+        } 
+        
     }
 
     function error(){
@@ -40,8 +48,8 @@ export default function Today(){
         <TodayPage>
             <Navbar/>
             <Date>{now}</Date>
-            <Description>Nenhuma tarefa cumprida</Description>
-            <TodayHabits todayHabits={todayHabits}/>
+            <Description dailyProgress={dailyProgress}>{(dailyProgress > 0) ? `${dailyProgress}% dos hábitos concluídos` : 'Nenhum hábito concluído ainda'}</Description>
+            <TodayHabits todayHabits={todayHabits} setTodayHabits={setTodayHabits} finishedHabits={finishedHabits} setFinishedHabits={setFinishedHabits}/>
             <Footer/>
             <Hole />
         </TodayPage>
@@ -77,6 +85,6 @@ const Date = styled.div`
 
 const Description = styled.div`
     font-size: 18px;
-    color: #BABABA;
+    color: ${props => (props.dailyProgress > 0) ? '#8FC549' : '#BABABA'};
     margin: 5px 0 20px 15px;
 `

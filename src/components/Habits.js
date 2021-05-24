@@ -42,7 +42,7 @@ export default function Habits(){
     }
 
     function addNewHabit(){
-        if(newHabit === "" || selectedDays === []){
+        if(newHabit === "" || selectedDays.length === 0){
             alert("selecione os dias e preencha o campo de texto")
             return
         }
@@ -53,9 +53,10 @@ export default function Habits(){
                                 setLoading(false)
                                 console.log(habits)
                                 setIsNewHabit(false)
-                                setNewHabit("")              
+                                setNewHabit("")  
+                                setSelectedDays([])            
                                           })
-        request.catch(() => {alert("erro ao enviar novo hábito")
+        request.catch(error => {alert(`erro ao enviar novo hábito\nerror: ${error}`)
                                 setLoading(false)})
     }
 
@@ -77,9 +78,7 @@ export default function Habits(){
                     <input disabled={isLoading} type="text" placeholder="Nome do hábito" value={newHabit} onChange={e => setNewHabit(e.target.value)}/>
                     <DaysOfTheWeek daysOfTheWeek={daysOfTheWeek} selectedDays={selectedDays} setSelectedDays={setSelectedDays} />
                     <Buttons>
-                        <Cancel disabled={isLoading} onClick={() => {setIsNewHabit(false)
-                                                                    setNewHabit("")
-                                                                                    }} isLoading={isLoading} >Cancelar</Cancel>
+                        <Cancel disabled={isLoading} onClick={() => setIsNewHabit(false)} isLoading={isLoading} >Cancelar</Cancel>
                         <Save disabled={isLoading} onClick={addNewHabit} isLoading={isLoading} >{
                             (isLoading) ? 
                             <Loader type="ThreeDots" color="#FFFFFF" height={80} width={80}  /> : 'Salvar'
@@ -92,7 +91,7 @@ export default function Habits(){
             <HabitsDescription>{(habits.length > 0) ? '' : 'Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!'}
             </HabitsDescription>
             {(habits.length > 0) && 
-                <HabitsList habits={habits} setHabits={setHabits}/>
+                <HabitsList habits={habits} setHabits={setHabits} disabled={isLoading}/>
             }
             <Footer />
             <Hole />

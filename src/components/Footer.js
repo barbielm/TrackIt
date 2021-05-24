@@ -1,19 +1,19 @@
 import styled from 'styled-components'
 import { CircularProgressbar } from 'react-circular-progressbar'
-import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import {useContext} from 'react'
+
+import UserContext from '../contexts/UserContext'
 
 export default function Footer(){
-    const percentage = 50
+    const {dailyProgress} = useContext(UserContext)
     const history = useHistory()
     return(
-        <Menu >
-           
-
+        <Menu>
             <HabitsButton onClick={() => history.push("/habitos")}>Hábitos</HabitsButton>
             <TodayButton onClick={() => history.push("/hoje")}>Hoje
                 <div >
-                <CircularProgressbar value={percentage} styles={{
+                <CircularProgressbar value={dailyProgress} styles={{
                     path: {
                     stroke: `#FFFFFF`
                     }}}/>

@@ -88,7 +88,7 @@ const SignUpPage = styled.div`
     }
     img {
         width: 170px;
-        margin: 50px auto 0 auto;
+        margin: 30px auto 0 auto;
 
     }
     button{

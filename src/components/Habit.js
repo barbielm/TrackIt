@@ -10,6 +10,8 @@ export default function Habit({habit, habits, setHabits}){
     const {information} = useContext(UserContext)
     const {token} = information
     function deleteHabit(){
+        const toDelete = window.confirm("Você realmente deseja apagá-lo?") 
+        if(!toDelete) return
         const config = {
             headers: {
                 "Authorization": `Bearer ${token}`

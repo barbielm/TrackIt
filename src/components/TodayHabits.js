@@ -1,8 +1,8 @@
 import TodayHabit from './TodayHabit'
-export default function TodayHabits(props){
-    const { todayHabits } = props
-    
+
+export default function TodayHabits({ todayHabits, setTodayHabits, setFinishedHabits }){   
     return(
-        todayHabits.map(habit => <TodayHabit habit={habit} />)
+        todayHabits.map(habit => <TodayHabit habit={habit} key={habit.id} 
+            setFinishedHabits={setFinishedHabits} setTodayHabits={setTodayHabits}/>)
     )
 }
